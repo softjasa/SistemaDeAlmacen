@@ -1,0 +1,38 @@
+<% if current_user %>
+<% if current_user.rol == "tecnico" || current_user.rol == "gerente" %>
+<% title "Registrar Servicio" %>
+<div class="hero-unit">
+
+<center><h1>Registrar Servicio</h1></center></br>
+	<%= form_validated_for(@technical_service) do |f| %>
+  		<!--<div class="row">-->
+			
+
+			<%= f.label :product_code , "*Codigo del Producto:" %>
+			<p><%= f.text_field :product_code, :maxlength => '20' %></p>
+
+			<%= f.label :product_name , "*Nombre del Producto:" %>
+			<p><%= f.text_area :product_name, :maxlength => '20' %>	</p>
+	
+			<%= f.label :detail , "*Detalle:" %>
+			<p><%= f.text_area :detail, :maxlength => '100' %></p>
+
+			<%= f.label :client , "*Cliente:" %>
+			<p><%=f.collection_select(:client, Client.all, :name, :name)%></p>
+	
+			<p><%= f.submit "Registrar servicio", class: "btn btn-large btn-jordi" %></p>
+			
+		<!--</div>-->
+	<%end%>
+</div>
+
+<div align="left">
+	<%= button_to 'Volver', technical_services_path, :method => :get, class: "btn btn-default"  %>
+</div>
+
+
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

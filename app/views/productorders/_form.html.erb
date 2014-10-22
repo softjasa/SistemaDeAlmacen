@@ -1,0 +1,16 @@
+<%= form_validated_for([@order, @order.productorders.build]) do |f| %>
+  <p>
+    <%= f.label :name, "Producto" %>
+    <%=f.collection_select(:nombre_producto, Productname.all, :id, :name)%>
+  </p>
+  <p>
+    <%= f.label :quantity, "Cantidad" %>
+    <%= f.text_field :quantity, :maxlength => '4' %>
+    </p>
+    <p>
+    <%= f.label :price, "Costo Unit." %>
+    <%= f.text_field :price, :maxlength => '9' %>
+    </p>
+    <%= f.submit "Agregar Producto a Pedido", class: "btn btn-large btn-jordi" %>
+  </p>
+<% end %>

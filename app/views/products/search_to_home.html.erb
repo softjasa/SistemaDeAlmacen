@@ -1,0 +1,14 @@
+<% if current_user %>
+    <% if current_user.rol == "admin" || current_user.rol == "gerente" %>
+<% title "Buscar Producto" %>
+<h1>Producto con nombre <%=@name%></h1>
+<%= render "products_controller/products_home" %>
+<DIV Align=left>
+<%= button_to 'Volver', products_path, :method => :get, :class => 'btn btn-default' %><br>
+</DIV>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

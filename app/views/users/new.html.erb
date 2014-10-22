@@ -1,0 +1,10 @@
+<% if current_user %>
+<% if current_user.rol == "admin" || current_user.rol == "gerente" %>
+<% title "Crear usuario" %>
+<center><h1>Crear Usuario</h1></center>
+<%= render 'form' %>
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

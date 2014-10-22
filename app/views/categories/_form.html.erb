@@ -1,0 +1,10 @@
+<%= form_validated_for(@category) do |f| %>
+<CENTER>
+  <p>
+    <%= f.label :name, "Nombre de la categoria" %>
+    <%= f.text_field :name, :maxlength => '20'%>
+    </p>
+  
+  	<p><%= f.submit (@category.new_record? ? 'Crear Categoria' : 'Guardar Cambios'), :class => 'btn btn-lg btn-jordi' %></p>
+<% end %>
+</CENTER>

@@ -1,0 +1,37 @@
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" %>
+	<% title "Registrar Venta" %>
+<div class="hero-unit">
+
+<h1>Registrar Venta</h1>
+<br>
+<%= form_validated_for (@sale) do |f| %>
+	<div class="col-xs-3">
+	<p>
+		<%= f.label :client_name , "Nombre del Cliente:" %>
+		<%= f.text_field :client_name, :maxlength => '20' %></p>
+
+		<p><%= f.label :check_number , "Numero de Factura:" %>
+		<%= f.text_field :check_number, :maxlength => '10' %>
+		</p>
+	
+	<p>
+		<%= f.label :nit , "NIT Cliente:" %>
+		<%= f.text_field :nit, :maxlength => '10' %>
+</p>
+<p>
+		<%= f.submit "Registrar Venta", class: "btn btn-large btn-jordi" %>
+		</p>
+	</div>	
+<%end%>
+
+</div>
+<div align="left">
+	<%= button_to 'Volver', sales_path, :method => :get, class: "btn btn-default"  %>
+</div>	
+
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

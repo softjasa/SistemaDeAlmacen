@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2014-05-30
+  detail: MyString
+  income: 1
+  output: 1
+  residue: 1
+
+two:
+  date: 2014-05-30
+  detail: MyString
+  income: 1
+  output: 1
+  residue: 1

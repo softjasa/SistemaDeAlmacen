@@ -1,0 +1,174 @@
+<% if current_user %>
+    <% if current_user.rol == "admin" || current_user.rol == "gerente" %>
+
+  <% title "Productos de pagina" %>
+<% if current_user %>  
+<h1>Productos de Pagina</h1>
+<% else%>
+<h1>Productos</h1>
+<%end%>
+
+<div align="right">
+<% if current_user %>
+<h3><%= link_to 'Añadir producto a pagina', products_path, :class => 'btn btn-jordi'%></h3>
+<% end %>
+</div>
+
+
+
+<center>
+<div>
+<br>
+<form method="GET" action="/products/search_to_home">
+Busqueda: <input type="text" name="name" placeholder="Nombre de producto"> &nbsp;&nbsp;&nbsp;
+<input type="submit" value="Buscar producto de pagina" class="btn btn-mini btn-info">
+</form>
+</div>
+</center>
+<CENTER>
+<br>
+<div class="container marketing">
+     <!-- Three columns of text below the carousel -->
+      <div class="row">
+<% @products.each do |product| %>
+  <% if product.home == true %>
+    <div class="col-lg-4">
+      <img src= '<%=product.photo.url %>' width=150 height=150 class="img-rounded"></a> 
+      <h2><%= product.name %></h2>
+      <p>Categoria: <%= product.category %></p>
+      <p><%= link_to 'Ver detalles', {:controller => :products, :action => 'view_product', :id => product.id} , :class => 'btn btn-mini btn-success'%>
+      <% if current_user %>
+      <%= link_to 'Editar Producto de Pagina', {:controller => :products, :action => 'edit_to_home', :id => product.id}, :class => 'btn btn-mini btn-warning'%></p>
+      <p><%= link_to 'Eliminar Producto de pagina', {:controller => :products, :action => 'delete_from_home', :id => product.id}, :class => 'btn btn-mini btn-danger' %></p>
+      <% end %>
+    </div><!-- /.col-lg-4 -->    
+  <% end %>
+<% end %>
+
+</div><!-- /.row -->
+    </div><!-- /.container -->
+    <%= will_paginate @products, :previous_label => 'Anterior', :next_label => 'Siguiente' %>
+</Center>
+
+
+
+
+
+
+<!--<h1>Lista de Productos de Pagina</h1>
+
+
+<div align="right">
+  <% if current_user %>
+    <h3><%= link_to 'Añadir Producto a Pagina', products_path, :class => 'btn btn-jordi'%></h3>
+  <% end %>
+</div>
+
+
+<center>
+  <div>
+  <br>
+    <form method="GET" action="/products/search_to_home">
+      Busqueda:  <input type="text" name="name" placeholder="Nombre de producto"> &nbsp;&nbsp;&nbsp;
+      <input type="submit" value="Buscar producto" class="btn btn-mini btn-info">
+    </form>
+  </div>
+</center>
+
+
+
+<head>
+    <meta charset="UTF-8">
+      <% title "Todos los productos" %>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/app/assets/stylesheets/aplication.css">
+    <script src="/app/public/javascript/products_home.js"></script>
+</head>
+<body>
+ <% @products.each do |product| %>
+      <% if product.home == true %>
+    <div id="divContenedor">
+      <% if current_user %>
+        <div class="divImagen">
+            <img src='<%=product.photo.url %>' class="img-rounded">
+            <div class="info">
+                <h3><CENTER><%= product.name %></CENTER></h3>
+                    <br>
+                <center>
+                   <%= link_to 'Ver', {:controller => :products, :action => 'view_product', :id => product.id} , :class => 'btn btn-mini btn-success'%>
+                   <%= link_to 'Editar', {:controller => :products, :action => 'edit_to_home', :id => product.id}, :class => 'btn btn-mini btn-warning'%>
+                   <%= link_to 'Eliminar', {:controller => :products, :action => 'delete_from_home', :id => product.id}, :class => 'btn btn-mini btn-danger' %>
+                </center>
+                
+            </div>
+        </div>
+        <div class="divImagen">
+            <img src='<%=product.photo.url %>'>
+            <div class="info">
+              <h3><CENTER><%= product.name %></CENTER></h3>
+                <center>
+                   <%= link_to 'Ver', {:controller => :products, :action => 'view_product', :id => product.id} , :class => 'btn btn-mini btn-success'%>
+                   <%= link_to 'Editar', {:controller => :products, :action => 'edit_to_home', :id => product.id}, :class => 'btn btn-mini btn-warning'%>
+                   <%= link_to 'Eliminar', {:controller => :products, :action => 'delete_from_home', :id => product.id}, :class => 'btn btn-mini btn-danger' %>
+                </center>
+            </div>
+        </div>
+       
+        </div>
+        <% end %>
+    </div>
+       <% end %>
+      <% end %>
+</body>
+
+
+
+
+<script>
+  
+$(document).ready(function()
+{
+  $('.divImagen').hover(
+    function() {
+      $(this).find('img').stop().animate({ 
+        width:100,
+        marginTop:10,
+        marginLeft:10
+      }, 500);
+    },
+
+    function() {
+      $(this).find('img').stop().animate({
+        width:300,
+        marginTop:10,
+        marginLeft:10
+      },300);
+    }
+  );
+});
+
+
+
+
+</script>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>
+

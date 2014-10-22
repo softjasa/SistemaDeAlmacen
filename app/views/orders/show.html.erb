@@ -1,0 +1,122 @@
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
+<h1>Registrar Pedido Nº:<%= @order.id%></h1>
+<h2>Fecha: <%=Date.today.strftime("%d/%m/%Y")%></h2>
+
+    <div class="modal fade" id="pedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h2 class="modal-title" id="myModalLabel">Registrar pedido</h2>
+          </div>
+          <div class="modal-body">
+          <%= form_validated_for(@order) do |f| %>
+          <h3><%=f.label :provider, "Proveedor" %> <%= f.collection_select(:provider_id, Provider.all, :id, :name)%></h3>
+          <h3> Fecha:<%= f.date_select :created_at %></h3>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+            <%=f.submit "Confirmar", class: "btn btn-large btn-jordi" %>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>    
+
+<h1>Productos:</h1>
+<center>
+<table class='table table-striped'>
+<thead>
+  <tr>
+    <th><center>Nombre</center></th>
+    <th><center>Codigo</center></th>  
+    <th><center>Cantidad</center></th>
+    <th><center>Costo Unit.(Bs)</center></th>
+    <th><center>Costo Total(Bs.)</center></th>
+    <th><center>Estado</center></th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+</center>
+<tbody>
+
+<% cantidad=@order.productorders.length%>
+<% if cantidad == 0 %>
+<% nuevo = true %>
+<% end %>
+
+<% @order.productorders.each do |producto| %>
+
+  <tr>
+    <td><CENTER><%= Productname.find(producto.productname_id).name %></CENTER></td>
+    <td><CENTER><%= Productname.find(producto.productname_id).code %></CENTER></td>
+    <td><CENTER><%= producto.quantity %></CENTER></td>
+    <td><CENTER><%= number_with_precision(producto.price, :precision => 2, :delimiter => ',') %></CENTER></td>
+    <td><CENTER><%= number_with_precision(producto.total_price, :precision => 2, :delimiter => ',') %></CENTER></td>
+    <%if producto.ingresado == true%>
+      <% cantidad -= 1 %>
+      <% nuevo = false %>
+      <%@order.ingresado = true%> 
+      <%@order.save%>
+      <td><center>Ingresado</center></td>
+    <%else%>
+    <% cantidad += 1 %>
+    <% nuevo = false %>
+      <td><center>Pendiente</center></td>
+    <%end%> 
+    <% if producto.ingresado == false %>
+    <td><%=link_to "Editar de pedido", {:controller => :productorders, :action => 'edit_order', :id => producto.id, :order_id => @order.id, :control => 'false'} , :class => 'btn btn-mini btn-warning' %></td>
+    <td><%= button_to 'Eliminar de pedido', productorder_path(:producto => { :control => "false", :id => producto.id}), method: :delete, data: { confirm: 'Seguro?' }, :class => 'btn btn-mini btn-danger' %></td>
+    <%end%>
+  </tr>
+<% end %>
+</tbody>
+</table>
+<br/>
+
+<%if nuevo == true || cantidad > 0 %>
+
+  <div align="right">
+    <button class="btn btn-jordi" data-toggle="modal" data-target="#myModal">Agregar producto a pedido</button>
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Agregar producto a pedido</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_validated_for([@order, @order.productorders.build]) do |f| %>
+            <%= f.label :nombre_producto , "Producto:" %>
+            <%=f.collection_select(:productname_id, Productname.all, :id, :name)%>
+            <%= f.label :quantity, "Cantidad" %>
+            <%= f.text_field :quantity, :maxlength => '4' %>
+            <%= f.label :price, "Costo Unit.(Bs.)" %>
+            <%= f.text_field :price, :maxlength => '9' %>
+            <%= f.hidden_field :control, :value => 'false' %> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+          <%= f.submit "Agregar", class: "btn btn-large btn-primary" %>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
+
+<br/>
+<%= link_to 'Cancelar pedido', order_path(@order), method: :delete, :class => 'btn btn-danger btn-lg' %>
+<%if cantidad > 0 %>
+<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#pedido">Registrar pedido</button>
+<%end%>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

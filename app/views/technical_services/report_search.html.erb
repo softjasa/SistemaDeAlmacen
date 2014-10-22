@@ -1,0 +1,21 @@
+<% if current_user %>
+<% if current_user.rol == "tecnico" || current_user.rol == "gerente" %>
+<% title "Ingresar Fechas" %>
+
+<div class="hero-unit">
+
+<center><h1>Reporte de Servicio tecnico</h1></center><br><br>
+	<center>
+		<form method="GET" action="/technical_services/search_between_dates">
+			Fecha Inicio: <input type="date" name="initial_date"> &nbsp;&nbsp;&nbsp;
+			Fecha Fin: <input type="date" name="ending_date"> &nbsp;&nbsp;&nbsp;
+			<input type="submit" value="Buscar Entre Fechas", class="btn btn-info">
+		</form>
+	</center>
+</div>
+
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

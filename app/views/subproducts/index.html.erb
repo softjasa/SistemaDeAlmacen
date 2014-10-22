@@ -1,0 +1,32 @@
+<div class="hero-unit">
+</div><br><br>
+<h1>SubProductos</h1>
+<CENTER>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><Center>Nombre</Center></th>
+            <th><Center>Codigo del SubProducto</Center></th>
+            <th><Center>Marca</Center></th>
+            <th><Center>Categoria</Center></th>
+            <th><Center>Precio De Compra</Center></th>
+    	    <th><Center>Precio De Venta</Center></th>        
+        </tr>
+    </thead>
+    <tbody>
+        <% @subproducts.each do |subproduct| %>
+            <tr>
+                <td><CENTER><%= subproduct.product.name %></CENTER></td>
+                <td><CENTER><%= subproduct.code %></CENTER></td>
+                <td><CENTER><%= subproduct.product.brand %></CENTER></td>
+                <td><CENTER><%= subproduct.product.category %></CENTER></td>
+                <td><CENTER><%= subproduct.product.bought_price %></CENTER></td>
+                <td><CENTER><%= subproduct.product.sale_price %></CENTER></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<br>
+</Center>
+</div>

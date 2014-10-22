@@ -1,0 +1,23 @@
+<% if current_user %>
+<% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" || current_user.rol == "admin" %>
+<div class="panel panel-info">
+  <div class="panel-heading"><h1 align="center"><%= @product.name %></h1></div>
+  <div class="panel-body">
+	<p>
+		<b>Codigo del producto:</b> <%= @product.general_code %><br>
+        <b>Marca:</b> <%= @product.brand %><br>
+        <b>Categoria:</b> <%= @product.category %><br>
+        <b>Detalle:</b> <%= @product.detail %><br>
+        <b>Cantidad:</b> <%= @product.quantity %>
+	</p>
+  </div>
+</div>
+<div align="left">
+  <%= button_to 'Volver', products_path, :method => :get, :class => 'btn btn-default  ' %><br> 
+</div>
+
+  <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

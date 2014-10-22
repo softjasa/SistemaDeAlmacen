@@ -1,0 +1,41 @@
+<% title "Stock de productos" %>
+<h1>Reporte de Inventario</h1>
+
+<center>
+<div >
+<br>
+<form method="GET" action="/products/search">
+Busqueda: <input type="text" name="name" placeholder="Nombre de producto" > &nbsp;&nbsp;&nbsp;
+<input type="submit" value="Buscar producto" class="btn btn-info">
+</form>
+</div>
+</center>
+<br>
+<CENTER>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><Center>Nombre</Center></th>
+            <th><Center>Marca</Center></th>
+            <th><Center>Categoria</Center></th>
+            <th><Center>Cantidad ingresada</Center></th>
+            <th><Center>Cantidad vendida</Center></th>      
+        </tr>
+    </thead>
+    <tbody>
+        <% @products.each do |product| %>
+            <tr>
+                <td><CENTER><%= product.name %></CENTER></td>
+                <td><CENTER><%= product.brand %></CENTER></td>
+                <td><CENTER><%= product.category %></CENTER></td>
+                <td><CENTER><%= product.quantity %></CENTER></td>
+                <td><CENTER>3</CENTER></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<br>
+</Center>
+
+<form><input type="button" name="imprimir" value="Imprimir" onclick="window.print();"></form>

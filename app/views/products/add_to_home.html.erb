@@ -1,0 +1,38 @@
+<% if current_user %>
+            <% if current_user.rol == "admin" || current_user.rol == "gerente" %>
+<% title "Añadir a pagina" %>
+
+<h1>Añadir producto a pagina</h1>
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_validated_for (@product) do |f| %>
+  			<%= f.error_messages %>
+
+			<h2><%= @product.name %></h2>
+	
+			<p><%= f.label :photo, "Foto:" %></p>
+			<%= f.file_field :photo %><br>	
+
+			<p><%= f.label :description , "Descripcion:" %>	</p>
+			<%= f.text_area :description, :maxlength => '300'  %><br><br>
+
+			<p><%=f.label :category, "Categoria" %>
+    		<%=f.collection_select(:category, Category.all, :name, :name)%></p>
+
+			<%= f.hidden_field :control, :value=>'true'%><br>
+			<p><%= f.submit "Añadir Producto",  class: "btn  btn-jordi"%></p>
+		<%end%>
+	</div>
+</div>
+
+<script>
+	$(":file").filestyle({buttonName: "btn-primary"});
+</script>
+
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

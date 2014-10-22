@@ -1,0 +1,45 @@
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @productorder.nombre_producto %>
+</p>
+<p>
+  <b>Codigo:</b>
+  <%= @productorder.code %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%= @productorder.description %>
+</p>
+
+<p>
+  <b>Cantidad:</b>
+  <%= @productorder.quantity %>
+</p>
+
+<p>
+    <strong>Estado del pedido</strong><br>
+   <%if @productorder.ingresado == true %>
+   	Ingresado
+   <%else%>
+   	Pendiente
+   <%end%>
+</p>
+
+<%= link_to 'Editar', edit_productorder_path(@productorder), class: "btn btn-primary"  %>
+<br>
+<br>
+
+
+<%= link_to 'Volver', {:controller => :orders, :action => "show", :id => @productorder.order_id}, :class => 'btn btn - btnmini-default' %>
+
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

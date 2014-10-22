@@ -1,0 +1,55 @@
+ <% if current_user %>
+<% if current_user.rol == "tecnico" || current_user.rol == "gerente" %>   
+    <% title "Servicios" %>
+<div class="hero-unit">
+<h1>Reporte de Servicios</h1>
+<br>
+
+<div>
+    <form method="GET" action="/technical_services/search">
+    Busqueda: <input type="text" name="value" placeholder="Cliente o Numero de servicio"> &nbsp;&nbsp;&nbsp;
+    <input type="submit" value="Buscar", class="btn btn-info">
+    </form>
+    
+</div><br><br>
+
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Nº</th>
+    <th>Cliente</th>
+    <th>Nombre Producto</th>
+    <th>Codigo Producto</th>
+    <th>Estado</th>
+    <th>Fecha</th>
+    <th>Detalles</th>
+    <th>Problemas</th>
+    <th>Reparaciones</th>
+  </tr>
+</thead>
+<% @technical_services.each do |technical_service| %>
+  <tbody>
+  <tr>
+    <td><%= technical_service.id %></td>
+    <td><%= technical_service.client %></td>
+    <td><%= technical_service.product_name %></td>
+    <td><%= technical_service.product_code %></td>
+    <td><%= technical_service.detail %></td>
+    <td><%= technical_service.problems %></td>
+    <td><%= technical_service.repairs %></td>
+    <td><%= technical_service.status %></td>
+    <td><%= technical_service.created_at.strftime("%d/%m/%Y") %></td>
+  </tr>
+</tbody>
+<% end %>
+</table>
+</br>
+</div>
+
+<form><input type="button" name="imprimir" value="Imprimir" onclick="window.print();"><% render layout: false %></form>
+
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

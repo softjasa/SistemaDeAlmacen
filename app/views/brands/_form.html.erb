@@ -1,0 +1,10 @@
+<%= form_validated_for(@brand) do |f| %>
+<CENTER>
+  <p>
+    <%= f.label :name, "*Nombre de Marca" %>
+    <%= f.text_field :name, :maxlength => '20'%>
+    </p>
+  
+	<p><%= f.submit (@brand.new_record? ? 'Registrar Marca' : 'Guardar Cambios'), :class => 'btn btn-lg btn-jordi' %></p>
+<% end %>
+</CENTER>

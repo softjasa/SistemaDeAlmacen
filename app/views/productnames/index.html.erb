@@ -1,0 +1,54 @@
+<% if current_user %>
+<% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
+
+<h1>Lista de Productos</h1>
+<div align="right">
+  <h3><%= link_to 'Registrar Producto', new_productname_path, :class => 'btn btn-jordi' %></h3>
+</div>
+
+<center>
+  <div >
+  <br>
+    <form method="GET" action="/productnames/search">
+      Nombre: <input type="text" name="name" placeholder="Nombre de producto"> &nbsp;&nbsp;&nbsp;
+      <input type="submit" value="Buscar producto", class = 'btn btn-mini btn-info '>
+    </form>
+  </div>
+</center>
+
+<CENTER>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th><CENTER>Nombre</CENTER></th>
+    <th><CENTER>Codigo</CENTER></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @productnames.each do |producto| %>
+  <tr>
+    <td><CENTER><%= producto.name %></CENTER></td>
+    <td><CENTER><%= producto.code %></CENTER></td>
+    <td>
+    <%= link_to 'Ver detalle de producto', productname_path(producto), :class => 'btn btn-mini  btn-success' %>
+    </td>
+    <td>
+    <%= link_to 'Editar producto', edit_productname_path(producto), :class => 'btn btn-mini  btn-warning' %>
+    </td>
+    <td>
+    <%= link_to 'Eliminar producto', producto, method: :delete, data: { confirm: 'Seguro de eliminar el nombre del producto?' }, :class => 'btn btn-mini btn-danger' %>
+    </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+  <%= will_paginate @productnames, :previous_label => 'Anterior', :next_label => 'Siguiente' %>
+</CENTER>
+
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

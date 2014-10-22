@@ -1,0 +1,11 @@
+<% title "Iniciar Sesión" %>
+
+<h1>Iniciar Sesion</h1>
+<%= form_tag sessions_path do %>
+	<div class="col-xs-3">
+  		<p><%= text_field_tag :login, params[:login], :class => 'form-control', :placeholder => 'Nombre de usuario...' %></p>
+  		<p><%= password_field_tag :password, params[:password], :class => 'form-control', :placeholder => 'Contraseña...' %></p>
+  		<p><%= submit_tag "Iniciar sesión", :class => "btn btn-lg btn-primary btn-block" %>
+  	</div>
+<% end %>
+

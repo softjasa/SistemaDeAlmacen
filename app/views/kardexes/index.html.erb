@@ -1,0 +1,40 @@
+<% if current_user %>
+<% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
+<h1>Kardex de Producto</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Detalle</th>
+      <th>Ingreso</th>
+      <th>Egreso</th>
+      <th>Saldo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kardexes.each do |kardex| %>
+      <tr>
+        <td><%= kardex.date %></td>
+        <td><%= kardex.detail %></td>
+        <td><%= kardex.income %></td>
+        <td><%= kardex.output %></td>
+        <td><%= kardex.residue %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div align="left">
+  <%= button_to 'Volver', products_path, :method => :get, :class => 'btn btn-default  ' %><br> 
+</div>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

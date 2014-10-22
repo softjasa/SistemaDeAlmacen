@@ -1,0 +1,34 @@
+<% if current_user %>
+<% if current_user.rol == "tecnico" || current_user.rol == "gerente" %>
+<% title "Servicios" %>
+<div class="hero-unit">
+<center><h1>Buscar Servicios</h1></center>
+<br>
+<center>
+    <div>
+    <form method="GET" action="/technical_services/search">
+    Busqueda: <input type="text" name="name" placeholder="Nombre de cliente"> &nbsp;&nbsp;&nbsp;
+    <input type="submit" value="Buscar servicio", class="btn btn-info">
+    </form>
+    
+    </div><br><br>
+</center>
+<table class="table table-striped">
+  <tr>
+    <th>Nº</th>
+    <th>Cliente</th>
+    <th>Nombre Producto</th>
+    <th>Codigo Producto</th>
+    <th>Estado</th>
+    <th>Fecha</th>
+    <th></th>
+    <th></th>
+  </tr>
+</table>
+
+</div>
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

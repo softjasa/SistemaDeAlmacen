@@ -1,0 +1,37 @@
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
+<% title "Editar Producto de Pedido" %>
+
+<h1>Editar Producto <%= Productname.find(@productorder.productname_id).name%></h1>
+<div class="row">
+	<div class="col-xs-3">
+	<%= form_validated_for(@productorder) do |f| %>		
+    	<p>
+    		<%= f.label :quantity, "Cantidad" %>
+    		<%= f.text_field :quantity, :maxlength => '4' %>
+    		<%=f.label :price, "Precio unitario" %>
+    		<%= f.text_field :price, :maxlength => '9'%>
+            <%= f.hidden_field :control, :value => @control %>
+            <% if @control == 'true' %>
+    		<%= f.hidden_field :valor, :value => 'true' %>
+            <%else%>
+            <%= f.hidden_field :valor, :value => 'false' %>
+            <%end%>
+    		<%= f.submit "Editar Producto", class: "btn btn-large btn-warning" %>
+    	</p>
+	</div>
+	<!--</div>-->
+	<%end%>
+	</div>
+</div>
+
+<div align="left">
+    <%= button_to 'Volver', @productorder.order, :method => :get, class: "btn  btn-default"  %>
+</div>
+
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

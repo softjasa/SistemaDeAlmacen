@@ -1,0 +1,41 @@
+
+<% title "Registrar Ingreso" %>
+
+<h1>Registrar Ingreso</h1>
+<CENTER>
+	<%= form_validated_for(@product) do |f| %>
+
+			<div class="col-xs-3">
+
+			<h2>Nombre: <%= @productorder.name %></h2>
+
+			<p><%= f.label :detail , "Detalle:" %>
+			<%= f.text_area :detail, :value => @productorder.description, :readonly => true %></p>
+
+			<p><%= f.label :general_code , "Codigo General del Producto:" %>
+			<%= f.text_field :general_code, :value => @productorder.code, :readonly => true %></p>
+
+ 			<p><%=f.label :category, "Categoria" %>
+    		<%=f.collection_select(:category, Category.all, :name, :name)%></p>
+
+    		<p><%=f.label :brand, "Marca" %>
+    		<%=f.collection_select(:brand, Brand.all, :name, :name)%></p>
+
+			<p><%= f.label :sale_price , "Precio De Venta:" %>
+			<%= f.text_field :sale_price %></p>
+
+			<p><%= f.label :quantity , "Cantidad:" %>
+			<%= f.text_field :quantity, :value => @productorder.quantity, :readonly => true %></p>
+
+			<p><%= f.label :id_order, "Numero de pedido:" %>
+			<%= f.hidden_field :id_order, :value => @productorder.order_id, :readonly => true %></p>
+
+			<!--Numero de producto-->
+			<p><%= f.hidden_field :id, :value => @productorder.id, :readonly => true %></p>
+
+			<p><%= f.submit "Crear Producto", class: "btn btn-large btn-jordi" %></p>
+			</div>
+		<!--</div>-->
+	<%end%>
+
+</CENTER>

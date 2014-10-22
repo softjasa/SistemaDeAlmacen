@@ -1,0 +1,40 @@
+<% if current_user %>
+  <% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
+<h1>Lista de Marcas</h1>
+
+<div align="right">
+  <h3><%= link_to 'Registrar Marca', new_brand_path, :class => 'btn btn-jordi ' %></h3>
+</div>
+<center>
+  <div>
+    <form method="GET" action="/brands/search">
+      Busqueda: <input type="text" name="name" placeholder="Nombre de marca"> &nbsp;&nbsp;&nbsp;
+      <input type="submit" value="Buscar marca", class="btn btn-info">
+    </form>
+  </div>
+</center>
+
+<CENTER>
+	<table class="table table-striped">
+		<thead>
+  			<tr>
+    			<th><CENTER><%=link_to "Nombre", :sort => "name" %></CENTER></th>
+  			</tr>
+		</thead>
+		<tbody>
+			<% @brands.each do |brand| %>
+  			<tr>
+    			<td><CENTER><%= brand.name %></CENTER></td>
+    			<td><%= link_to 'Editar Marca', {:controller => :brands, :action => "edit", :id => brand.id}, :class => 'btn btn-mini btn-warning' %>
+    			<%= link_to 'Eliminar Marca', brand, method: :delete, data: { confirm: 'Esta seguro de eliminar la marca?' }, :class => 'btn btn-mini btn-danger' %></td>
+  			</tr>
+			<% end %>
+		</tbody>
+	</table>
+  <%= will_paginate @brands, :previous_label => 'Anterior', :next_label => 'Siguiente' %>
+</CENTER>
+  <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

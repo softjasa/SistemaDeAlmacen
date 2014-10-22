@@ -1,0 +1,14 @@
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
+<% title "Buscar Pedido" %>
+<h1>Pedido al proveedor <%=@provider%></h1>
+<%= render "orders_controller/index" %>
+<DIV Align=left>
+<%= button_to 'Volver', orders_path, :method => :get, :class => 'btn btn-default' %><br>
+</DIV>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

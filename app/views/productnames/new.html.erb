@@ -1,0 +1,14 @@
+<% if current_user %>
+<% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
+<h1>Registrar Producto</h1>
+
+<%= render 'form' %>
+<div align="left">
+	<%= button_to 'Volver', productnames_path, :method => :get, class: "btn btn-default"  %>
+</div>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

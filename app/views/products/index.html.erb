@@ -1,0 +1,68 @@
+<% title "Stock de productos" %>
+<%if current_user.rol=="admin"%>
+<h1>Administracion de pagina</h1>
+<%else%>
+<h1>Stock de Productos</h1>
+<%end%>
+
+<center>
+<div>
+<br>
+<form method="GET" action="/products/search">
+Busqueda: <input type="text" name="name" placeholder="Nombre de producto"> &nbsp;&nbsp;&nbsp;
+<input type="submit" value="Buscar producto en Stock" class="btn btn-mini btn-info   ">
+</form>
+</div>
+</center>
+
+<CENTER>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><Center>Nombre</Center></th>
+            <th><Center>Marca</Center></th>
+            <th><Center>Cantidad</Center></th>      
+        </tr>
+    </thead>
+    <tbody>
+        <% @products.each do |product| %>
+            <tr>
+                <td><CENTER><%= product.name %></CENTER></td>
+                <td><CENTER><%= product.brand %></CENTER></td>
+                <td><CENTER><%= product.quantity %></CENTER></td>
+                <td><%= link_to 'Ver Producto', product_path(product), :class => 'btn btn-mini btn-success'  %>
+
+                <% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
+                    <%= link_to 'Editar Producto de Stock', {:controller => :products, :action => "edit", :id => product.id }, :class => 'btn btn-mini btn-warning'  %>
+                    <%if product.quantity == 0%>
+                        <%= link_to 'Eliminar Producto de Stock', product_path(product), method: :delete, data: { confirm: 'Esta seguro de elminar este producto' }, :class => 'btn btn-mini btn-danger' %>
+                    <%end%>
+                     <!--<%= link_to 'Ver Kardex', {:controller => :kardexes, :action => "index", :id => product.id , :name => product.name}, :class => 'btn btn-mini btn-default'  %>-->
+                    
+                    <%if product.quantity <= 5 %>                    
+                            <button type="button" class="btn btn-mini btn-danger popover-dismiss" data-toggle="popover" title="CANTIDAD MINIMA" data-content="El cantidad de productos se encuentra en el minimo.">ALERTA!
+                        </button>                                                            
+                    <%end%>
+                    
+                    </td>    
+                <%end%>
+                <% if current_user.rol == "admin" || current_user.rol == "gerente"%>
+                    <%if product.home == true%>
+                    <td><%= button_to 'Eliminar producto de pagina', {:controller => :products, :action => 'delete_from_home', :id => product.id}, :class => 'btn btn-mini btn-danger' %></td>
+                    <%else%>
+                    <!--<td><%= button_to 'Añadir producto a pagina', {:controller => :products, :action => 'add_to_home', :id => product.id}, :class => 'btn btn-jordi'%></td>-->
+                    <%end%>    
+                <%end%>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<%= will_paginate @products, :previous_label => 'Anterior', :next_label => 'Siguiente' %>
+<br>
+</Center>
+
+
+<script>
+    $('.popover-dismiss').popover({trigger: 'focus'})
+</script>

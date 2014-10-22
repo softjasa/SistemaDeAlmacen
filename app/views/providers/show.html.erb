@@ -1,0 +1,34 @@
+
+
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
+<div class="panel panel-info">
+  <div class="panel-heading"><center><H1><%= @provider.name %> </H1></center>  </div>
+  <div class="panel-body">
+  	<table align="center">
+			<th align="left" style="background-color:white" width="600">
+		<b class="text-info">Email:</b>   
+		<p><%= @provider.mail %></p>
+
+		<b class="text-info">Telefono:</b><br>
+		<p><%= @provider.phone %></p>
+
+		<b class="text-info">Direccion:</b> <br>
+		<p><%= @provider.address %></p>
+
+		</th>
+		</table>
+	</div>
+  </div>
+<div align="left">		
+
+<div align="left">
+  <%= button_to 'Volver', providers_path, :method => :get, :class => 'btn btn-default  ' %><br> 
+</div>
+
+
+  <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

@@ -1,0 +1,60 @@
+<% if current_user %>
+<% if current_user.rol == "tecnico" || current_user.rol == "gerente" %>
+<% title "Servicios" %>
+<div class="hero-unit">
+<center><h1>Lista de Servicios</h1></center>
+<br>
+<div align="right">
+<%= link_to 'Registrar Servicio', {:controller => :technical_services, :action => 'new'}, :class => 'btn btn-mini btn-jordi'%>
+</div>
+
+
+<center>
+<div>
+<form method="GET" action="/technical_services/search">
+Busqueda: <input type="text" name="name" placeholder="Nombre de cliente"> &nbsp;&nbsp;&nbsp;
+<input type="submit" value="Buscar servicio", class="btn btn-info">
+</form>
+</div>
+</center>
+<div class="alert alert-info">
+    <p>Resultados para: <%= @value %></p>
+</div>
+
+<table class="table table-striped">
+  <tr>
+    <th>Nº</th>
+    <th>Cliente</th>
+    <th>Nombre Producto</th>
+    <th>Codigo Producto</th>
+    <th>Estado</th>
+    <th>Fecha</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @technical_services.each do |technical_service| %>
+  <tr>
+    <td><%= technical_service.id %></td>
+    <td><%= technical_service.client %></td>
+    <td><%= technical_service.product_name %></td>
+    <td><%= technical_service.product_code %></td>
+    <td><%= technical_service.status %></td>
+    <td><%= technical_service.created_at.strftime("%d/%m/%Y") %></td>
+    <td><%= link_to 'Ver Servicio', {:controller => :technical_services, :action => 'show', :id => technical_service.id}, :class => 'btn btn-mini btn-success'  %></td>
+    <%if technical_service.status == "En reparacion" || technical_service.status == "Recibido"%>
+    <td><%= link_to 'Añadir problemas/ reparaciones', {:controller => :technical_services, :action => 'edit', :id => technical_service.id},:class => 'btn btn-mini btn-info ' %></td>
+    <%end%>
+  </tr>
+<% end %>
+</table>    
+<Center><%= will_paginate @users, :previous_label => 'Anterior', :next_label => 'Siguiente' %></Center>
+</br>
+
+</div>
+
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

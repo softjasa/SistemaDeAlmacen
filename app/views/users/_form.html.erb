@@ -1,0 +1,23 @@
+  
+<%= form_validated_for @user do |f| %>
+  <!--<%= f.error_messages %>-->
+      <%= f.label :username, '*Nombre de usuario' %>
+      <p><%= f.text_field :username, :maxlength => '45' %></p>
+    
+      <%= f.label :name, '*Nombre completo' %>
+      <p><%= f.text_field :name, :class => 'form-control', :maxlength => '45' %></p>
+      
+      <%= f.label :password, '*Contraseña'%>
+      <p><%= f.password_field :password, :class => 'form-control', :maxlength => '25' %></p>
+      
+      <%= f.label :password_confirmation, '*Confirme Contraseña' %>
+      <p><%= f.password_field :password_confirmation, :class => 'form-control', :maxlength => '25' %></p>
+
+      <p><%= f.label :rol %>
+        <%= f.select :rol, options_for_select([[ 'Tecnico', 'tecnico' ], ['Encargado almacen', 'enc_almacen']]) %>
+      <p><%= f.submit (@user.new_record? ? 'Crear usuario' : 'Update'), :class => 'btn btn-mini btn-jordi' %></p>
+<% end %>
+
+<div align="left">
+  <%= button_to 'Volver', users_path, :method => :get, class: "btn btn-default"  %>
+</div>

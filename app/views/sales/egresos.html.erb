@@ -1,0 +1,50 @@
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" %>
+
+<% title "Lista de Ventas" %>
+<div class="hero-unit">
+<h1>Reporte de Egresos</h1>
+
+<p>
+    <div>
+    <!--h2><Center--><!--%= link_to_function "Ver Detalle de Venta", "$('#hide').toggle()" %></Center></h2-->
+    <!--div id="hide" style="display:none"-->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><Center>Nombre</Center></th>
+                    <th><Center>Codigo del SubProducto</Center></th>
+                    <th><Center>Precio</Center></th> 
+                    <th><Center>Numero de factura</Center></th>
+                    <th><Center>Cliente</Center></th>
+                    <th><Center>Fecha de egreso</Center></th>                       
+                </tr>
+            </thead>
+<% @sales.each do |sale| %>
+            <tbody>
+                <% sale.productsales.each do |subproduct| %>
+                    <tr>
+                        <td><CENTER><%= subproduct.name %></CENTER></td>
+                        <td><CENTER><%= subproduct.code %></CENTER></td>
+                        <td><CENTER><%= subproduct.price %></CENTER></td>
+                        <td><CENTER><%= sale.check_number %></CENTER></td> 
+                        <td><CENTER><%= sale.client_name %></CENTER></td>
+                        <td><CENTER><%= sale.created_at.strftime("%d/%m/%Y") %></CENTER></td>  
+                    </tr>
+                <% end %>
+            </tbody>
+<%end%>
+        </table>
+    </div>
+</p>
+
+<form><input type="button" name="Imprimir Egresos" value="Imprimir" onclick="window.print();"></form>
+
+  </CENTER>
+  </div>
+
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

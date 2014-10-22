@@ -1,0 +1,59 @@
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
+
+<h1>Ver Pedido</h1>
+
+    <h2>Numero de pedido: <%=@order.id%></h2>
+    <h2>Proveedor: <%=Provider.find(@order.provider_id).name%></h2>
+    <h2>Fecha pedido: <%=@order.created_at.strftime("%d/%m/%Y")%>
+
+<h1>Productos:</h1>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th><CENTER>Nombre</CENTER></th>
+    <th><CENTER>Codigo</CENTER></th>  
+    <th><CENTER>Cantidad</CENTER></th>
+    <th><CENTER>Costo Unit.(Bs.)</CENTER></th>
+    <th><CENTER>Costo Total (Bs.)</CENTER></th>
+    <th><CENTER>Estado</CENTER></th>
+  </tr>
+</thead>
+<tbody>
+<% cantidad = @order.productorders.length %>
+<% if cantidad == 0 %>
+<% nuevo = true %>
+<% end %>
+<% @order.productorders.each do |producto| %>
+  <tr>
+    <td><CENTER><%= Productname.find(producto.productname_id).name %></CENTER></td>
+    <td><CENTER><%= Productname.find(producto.productname_id).code %></CENTER></td>
+    <td><CENTER><%= producto.quantity %></CENTER></td>
+    <td><CENTER><%= number_with_precision(producto.price, :precision => 2, :delimiter => ',') %></CENTER></td>
+    <td><CENTER><%= number_with_precision(producto.total_price, :precision => 2, :delimiter => ',') %></CENTER></td>
+    <%if producto.ingresado == true %>
+      <% cantidad -= 1 %>
+      <% nuevo = false %>
+      <%if cantidad == 0 %>
+      <% @order.ingresado = true%> 
+      <% @order.save %>
+      <%end%>
+      <td><CENTER>Ingresado</CENTER></td>
+    <%else%>
+    <% cantidad += 1 %>
+    <% nuevo = false %>
+      <td><CENTER>Pendiente</CENTER></td>
+    <%end%>
+  </tr>
+<% end %>
+</tbody>
+</table>
+<br/>
+
+<a href="/orders" class="btn btn-default">Volver</a>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

@@ -1,0 +1,32 @@
+<% if current_user %>
+            <% if current_user.rol == "admin" || current_user.rol == "gerente" %>
+<% title "Editar de pagina" %>
+
+<h1>Editar producto de pagina</h1>
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_validated_for (@product) do |f| %>
+  			<%= f.error_messages %>
+
+			<h3><%= @product.name %></h3>
+	
+			<p><%= f.label :photo, "Foto:" %></p>
+			<%= f.file_field :photo %><br>
+
+			<p><%= f.label :description , "Descripcion:" %></p>
+			<%= f.text_area :description, :maxlength => '300' %><br> <br>
+			
+			<p><%=f.label :category, "Categoria" %>
+    		<%=f.collection_select(:category, Category.all, :name, :name)%></p>
+
+			<%= f.hidden_field :control, :value => true%>
+			<%= f.submit "Guardar cambios" , class: "btn btn-large btn-jordi"%>
+		<%end%>
+	</div>
+</div>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

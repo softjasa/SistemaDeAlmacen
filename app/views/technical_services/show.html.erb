@@ -1,0 +1,45 @@
+ <% if current_user %>
+<% if current_user.rol == "tecnico" || current_user.rol == "gerente" %>   
+<% title "Servicio Tecnico" %>
+
+
+<div class="panel panel-info">
+  <div class="panel-heading"><h1><center> Servicio Tecnico</center></h1></div>
+  <div class="panel-body">
+		<table align="center">
+			<th align="left" style="background-color:white" width="600">
+
+			<h3 class="text-info" align="right">Nº: <%= @technical_service.id %></h3>
+
+			<b class="text-info">Fecha:</b>
+			<p><%= @technical_service.created_at.strftime("%d/%m/%Y") %></p>
+
+			<b class="text-info">Cliente:</b>
+			<p><%= @technical_service.client %></p>
+
+			<b class="text-info">Estado:</b>
+			<p><%= @technical_service.status %></p>
+
+			<b class="text-info">Detalle:</b>
+			<p><%= @technical_service.detail %></p>
+
+			<b class="text-info">Problemas:</b>
+			<p><%= @technical_service.problems %></p>
+
+			<b class="text-info">Reparaciones:</b>
+			<p><%= @technical_service.repairs %></p>
+
+			<b class="text-info">Codigo producto:</b>
+			<p><%= @technical_service.product_code %></p>
+
+			</th>
+		</table>
+	</div>
+  </div>
+<div align="left">
+
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

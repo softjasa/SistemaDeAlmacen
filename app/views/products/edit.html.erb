@@ -1,0 +1,41 @@
+
+<% title "Editar producto de stock" %>
+<h1>Editar producto de stock</h1>
+<% if current_user %>
+<% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
+<div class="row">
+	
+	<%= form_validated_for(@product) do |f| %>
+  			
+  		<div class="field">
+			<p><%= f.label :name , "*Nombre:" %>
+			<%=f.collection_select(:name, Productname.all, :name, :name)%>
+		</div>
+	
+			<p><%= f.label :detail , "*Detalle:" %>
+			<%= f.text_area :detail, :maxlength => '100'%>
+
+			<p><%= f.label :general_code , "*Codigo General del Producto:" %>
+			<%= f.text_field :general_code, :maxlength => '15' %>
+
+			<p><%=f.label :category, "*Categoria" %>
+    		<%=f.collection_select(:category, Category.all, :name, :name)%>
+
+    		<p><%=f.label :brand, "*Marca" %>
+    		<%=f.collection_select(:brand, Brand.all, :name, :name)%>
+
+			<p><%= f.submit "Guardar Cambios", class: "btn btn-large btn-jordi" %></p>
+		<%end%>
+	
+</div>
+
+<div align="left">
+  <%= button_to 'Volver', products_path, :method => :get, :class => 'btn btn-default  ' %><br> 
+</div>
+
+
+  <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

@@ -1,0 +1,43 @@
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
+<% title "Ingresos" %>
+<h1><center>Reporte de ingresos</center></h1>
+
+<table class="table table-striped">
+
+  <thead>
+  <tr>
+    <th>Numero de pedido</th>
+    <th>Nombre</th>
+    <th>Codigo</th>
+    <th>Descripcion</th>
+    <th>Cantidad</th>
+    <th>Costo Unit.</th>
+    <th>Costo total</th>
+    <th>Fecha de ingreso</th>
+  </tr>
+</thead>
+<% @incomes.each do |income| %>
+  <tbody>
+  <tr>
+    <td><%= income.id_order%></td>
+    <td><%= income.product_name %></td>
+    <td><%= income.code %></td>
+    <td><%= income.description %></td>
+    <td><%= income.quantity %></td>
+    <td><%= income.price %></td>
+    <td><%= income.total_price %></td>
+    <td><%= income.created_at.strftime("%d/%m/%Y") %></td>
+  </tr>
+  </tbody>
+<% end %>
+
+</table>
+
+<form><input type="button" name="imprimir" value="Imprimir" onclick="window.print();"></form>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

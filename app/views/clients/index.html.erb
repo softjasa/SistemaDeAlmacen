@@ -1,0 +1,50 @@
+<% if current_user %>
+<% if current_user.rol == "tecnico" || current_user.rol == "gerente" || current_user.rol == "secre" %>
+<% title "Clientes" %>
+<center><h1>Lista de Clientes</h1></center>
+
+<center>
+<div>
+<br>
+<form method="GET" action="/clients/search">
+Busqueda: <input type="text" name="name" placeholder="Nombre de cliente"> &nbsp;&nbsp;&nbsp;
+<input type="submit" value="Buscar cliente" class="btn btn-mini btn-info   ">
+</form>
+</div>
+</center>
+<div align="right">
+  <%= link_to 'Registrar Cliente', {:controller => :clients, :action => 'new'}, :class => "btn btn-mini btn-jordi" %>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre Completo</th>
+      <th>NIT</th>
+      <th>Telefono/Celular</th>
+      <th>Fecha de registro</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @clients.each do |client| %>
+    <tr>
+      <td><%= client.name %></td>
+      <td><%= client.nit %></td>
+      <td><%= client.phone %></td>
+      <td><%= client.created_at.strftime("%d/%m/%Y") %></td>
+      <td><%= link_to 'Editar Cliente', {:controller => :clients, :action => "edit", :id => client.id}, :class => 'btn btn-mini btn-warning'  %></td>
+      <td><%= button_to 'Eliminar Cliente', client_path(client),method: :delete, data: { confirm: 'Seguro?' }, :class => "btn btn-mini btn-danger" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<center><%= will_paginate @clients, :previous_label => 'Anterior', :next_label => 'Siguiente' %></center>
+</br>
+
+  <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>
+
+ 

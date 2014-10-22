@@ -1,0 +1,42 @@
+
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" %>
+<% title "Reporte de Egresos" %>
+
+<h1><center>Reporte de egresos</center></h1>
+
+<table class="table table-striped">
+
+  <thead>
+  <tr>
+    <th>Nombre</th>
+    <th>Codigo</th>
+    <th>Precio venta</th>
+    <th>Numero de venta</th>
+    <th>Fecha de egreso</th>
+  </tr>
+</thead>
+<% @sales.each do |sale|%>
+
+<% sale.productsales.each do |productsale| %>
+  <tbody>
+  <tr>
+    <td><%= productsale.name %></td>
+    <td><%= productsale.code %></td>
+    <td><%= productsale.price %></td>
+    <td><%= productsale.sale_id %></td>
+    <td><%= productsale.created_at.strftime("%d/%m/%Y") %></td>
+  </tr>
+  </tbody>
+<% end %>
+<%end%>
+</table>
+
+<form><input type="button" name="imprimir" value="Imprimir" onclick="window.print();"></form>
+
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

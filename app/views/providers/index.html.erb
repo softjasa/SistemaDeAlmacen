@@ -1,0 +1,50 @@
+
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
+<h1>Todos los Proveedores</h1>
+<div align="right">
+	<h3><%= link_to 'Añadir Proveedor', new_provider_path, :class => 'btn btn-jordi' %></h3>
+</div>
+
+<center>
+<div>
+  <br>
+  <form method="GET" action="/providers/search">
+    Busqueda: <input type="text" name="name" placeholder="Nombre de proveedor "> &nbsp;&nbsp;&nbsp;
+    <input type="submit" value="Buscar proveedor" class="btn btn-mini btn-info">
+</form>
+</div>
+</center>
+
+
+<CENTER>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th><CENTER><%=link_to "Nombre", :sort => "name" %></CENTER></th>
+    <th><CENTER>Email</CENTER></th>
+    <th><CENTER>Telefono</CENTER></th>
+    <th><CENTER>Direccion</CENTER></th>
+  </tr>
+</thead>
+<tbody>
+<% @providers.each do |provider| %>
+  <tr>
+    <td><CENTER><%= provider.name %></CENTER></td>
+    <td><CENTER><%= provider.mail %></CENTER></td>
+    <td><CENTER><%= provider.phone %></CENTER></td>
+    <td><CENTER><%= provider.address %></CENTER></td>
+    <td><%= link_to 'Editar Proveedor', {:controller => :providers, :action => "edit", :id => provider.id}, :class => 'btn btn-mini btn-warning' %>
+    <%= link_to 'Eliminar Proveedor', provider, method: :delete, data: { confirm: 'Seguro de eliminar el proveedor?' }, :class => 'btn btn-mini btn-danger' %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+    <%= will_paginate @providers, :previous_label => 'Anterior', :next_label => 'Siguiente' %>
+</CENTER>
+
+  <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

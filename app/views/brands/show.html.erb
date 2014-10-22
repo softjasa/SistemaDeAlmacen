@@ -1,0 +1,20 @@
+<% if current_user %>
+	<% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
+	<p id="notice"><%= notice %></p>
+	<CENTER>
+	<p>
+	  <b>Nombre:</b>
+	  <%= @brand.name %>
+	</p>
+
+	<%= link_to 'Editar', edit_brand_path(@brand), class: "btn btn-warning"  %>
+	<br><br>
+	</CENTER>
+	<div align="left">
+		<%= button_to 'Volver', brands_path, :method => :get, class: "btn  btn-default"  %>
+	</div>
+	<%else%>
+		<%flash[:danger] = "ACCESO RESTRINGIDO"%>
+		<center><img src="/images/candado.png"></center>
+	<%end%>
+<%end%>

@@ -1,0 +1,13 @@
+<%= form_validated_for(@client) do |f| %>
+ 		
+			<%= f.label :name , "*Nombre completo:" %>
+			<p><%= f.text_field :name, :maxlength => '45' %></p>
+
+			<%= f.label :nit , "*NIT:" %>
+			<p><%= f.text_field :nit, :maxlength => '10' %></p>
+
+			<%= f.label :phone , "*Telefono/Celular:" %>
+			<p><%= f.text_field :phone,:maxlength => '8' %></p>
+	
+			<p><%= f.submit (@client.new_record? ? 'Registrar cliente' : 'Guardar Cambios'), :class => 'btn btn-mini btn-jordi' %></p>
+<%end%>

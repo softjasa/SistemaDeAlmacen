@@ -1,0 +1,22 @@
+<% if current_user %>
+    <% if current_user.rol == "admin" || current_user.rol == "gerente" %>	
+<p id="notice"><%= notice %></p>
+<CENTER>
+<p>
+  <b>Nombre:</b>
+  <%= @category.name %>
+</p>
+
+<%= link_to 'Editar', edit_category_path(@category), class: "btn btn-warning"  %>
+<br><br>
+
+</CENTER>
+<div align="left">
+	<%= button_to 'Volver', categories_path, :method => :get, class: "btn btn-default"  %>
+</div>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

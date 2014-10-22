@@ -1,0 +1,46 @@
+<% if current_user %>
+<% if current_user.rol == "tecnico" || current_user.rol == "gerente" %>
+<% title "Reporte" %>
+<div class="hero-unit">
+<center><h1>Reporte de Servicios</h1></center>
+<br>
+
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Nº</th>
+    <th>Cliente</th>
+    <th>Nombre Producto</th>
+    <th>Codigo Producto</th>
+    <th>Detalles</th>
+    <th>Problemas</th>
+    <th>Reparaciones</th>
+    <th>Estado</th>
+    <th>Fecha</th>
+  </tr>
+</thead>
+<% @technical_services.each do |technical_service| %>
+  <tbody>
+  <tr>
+    <td><%= technical_service.id %></td>
+    <td><%= technical_service.client %></td>
+    <td><%= technical_service.product_name %></td>
+    <td><%= technical_service.product_code %></td>
+    <td><%= technical_service.detail %></td>
+    <td><%= technical_service.problems %></td>
+    <td><%= technical_service.repairs %></td>
+    <td><%= technical_service.status %></td>
+    <td><%= technical_service.created_at.strftime("%d/%m/%Y") %></td>
+  </tr>
+</tbody>
+<% end %>
+</table>
+</br>
+</div>
+
+
+    <%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

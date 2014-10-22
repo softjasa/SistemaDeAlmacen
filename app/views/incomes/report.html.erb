@@ -1,0 +1,44 @@
+<% if current_user %>
+<% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
+<% title "Reporte de Ingresos" %>
+<h1><center>Reporte de ingresos</center></h1>
+
+<table class="table table-striped">
+
+  <thead>
+  <tr>
+    <th><CENTER>Numero de pedido</CENTER></th>
+    <th><CENTER>Nombre</CENTER></th>
+    <th><CENTER>Codigo</CENTER></th>
+    <th><CENTER>Descripcion</CENTER></th>
+    <th><CENTER>Cantidad</CENTER></th>
+    <th><CENTER>Costo Unit.</CENTER></th>
+    <th><CENTER>Costo total</CENTER></th>
+    <th><CENTER>Fecha de ingreso</CENTER></th>
+  </tr>
+</thead>
+<% @incomes.each do |income| %>
+  <tbody>
+  <tr>
+    <td><CENTER><%= income.id_order%></CENTER></td>
+    <td><CENTER><%= income.product_name %></CENTER></td>
+    <td><CENTER><%= income.code %></CENTER></td>
+    <td><CENTER><%= income.description %></CENTER></td>
+    <td><CENTER><%= income.quantity %></CENTER></td>
+    <td><CENTER><%= number_with_precision(income.price, :precision => 2, :delimiter => ',') %></CENTER></td>
+    <td><CENTER><%= number_with_precision(income.total_price, :precision => 2, :delimiter => ',') %></CENTER></td>
+    <td><CENTER><%= income.created_at.strftime("%d/%m/%Y") %></CENTER></td>
+  </tr>
+  </tbody>
+<% end %>
+
+</table>
+
+<form><input type="button" name="Imprimir Ingresos" value="Imprimir" onclick="window.print();"></form>
+
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

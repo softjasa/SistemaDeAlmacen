@@ -1,0 +1,16 @@
+<% if current_user %>
+<% if current_user.rol == "tecnico" || current_user.rol == "gerente" || current_user.rol == "secre" %>
+<center><% title "Editar" %></center>
+<h1>Editar Cliente</h1>
+<h2><%= @client.name%></h2>
+		<%= render 'form' %>
+<div align="left">
+	<%= button_to 'Volver', clients_path, :method => :get, class: "btn btn-default"  %>
+</div>
+	<%else%>
+		<%flash[:danger] = "ACCESO RESTRINGIDO"%>
+		<center><img src="/images/candado.png"></center>
+	<%end%>
+<%end%>
+
+ 

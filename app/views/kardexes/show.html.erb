@@ -1,0 +1,37 @@
+
+<% if current_user %>
+<% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @kardex.date %>
+</p>
+
+<p>
+  <strong>Detail:</strong>
+  <%= @kardex.detail %>
+</p>
+
+<p>
+  <strong>Income:</strong>
+  <%= @kardex.income %>
+</p>
+
+<p>
+  <strong>Output:</strong>
+  <%= @kardex.output %>
+</p>
+
+<p>
+  <strong>Residue:</strong>
+  <%= @kardex.residue %>
+</p>
+
+<%= link_to 'Edit', edit_kardex_path(@kardex) %> |
+<%= link_to 'Back', kardexes_path %>
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

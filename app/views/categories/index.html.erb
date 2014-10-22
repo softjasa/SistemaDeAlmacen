@@ -1,0 +1,41 @@
+<% if current_user %>
+    <% if current_user.rol == "admin" || current_user.rol == "gerente" %> 
+<h1>Lista de Categorias</h1>
+
+<div align="right">
+  <h3><%= link_to 'Crear Categoria', new_category_path, :class => 'btn btn-jordi' %></h3>
+</div>
+
+<center>
+	<div>
+		<form method="GET" action="/categories/search">
+			Busqueda: <input type="text" name="name" placeholder="Nombre de categoria"> &nbsp;&nbsp;&nbsp;
+			<input type="submit" value="Buscar categoria", class="btn btn-info">
+		</form>
+	</div>
+</center>
+<CENTER>
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th><CENTER><%=link_to "Nombre", :sort => "name" %></CENTER></th>
+  </tr>
+</thead>
+<tbody>
+<% @categories.each do |category| %>
+  <tr>
+    <td><CENTER><%= category.name %></CENTER></td>
+    <td><%= link_to 'Editar Categoria', {:controller => :categories, :action => "edit", :id => category.id}, :class => 'btn btn-mini btn-warning	' %>
+    <%= link_to 'Eliminar Categoria', category, method: :delete, data: { confirm: 'Seguro de eliminar la marca?' }, :class => 'btn btn-mini btn-danger' %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+<%= will_paginate @categories, :previous_label => 'Anterior', :next_label => 'Siguiente' %>
+</CENTER>
+
+<%else%>
+    <%flash[:danger] = "ACCESO RESTRINGIDO"%>
+    <center><img src="/images/candado.png"></center>
+  <%end%>
+<%end%>

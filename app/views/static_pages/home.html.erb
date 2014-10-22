@@ -1,0 +1,130 @@
+<!-- Carrusel -->
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="6"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+                 
+    <div class="item active">
+      <center><img src="/images/1.jpg" height=600 width=1136 alt="1" class="img-rounded"> </center> 
+      <div class="carousel-caption">
+        <h3 class="img-rounded"></h3>
+      </div>
+    </div>
+    <div class="item">
+      <center><img src="/images/3.jpg" height=600 width=1136 alt="2" class="img-rounded"></center>        
+      <div class="carousel-caption">
+        <h3 class="img-rounded"></h3>
+      </div>
+    </div>
+    <div class="item">      
+        <center><img src="/images/2.jpg" height=600 width=1136 alt="3" class="img-rounded"></center>        
+        <div class="carousel-caption">
+          <h3 class="img-rounded"></h3>
+        </div>
+    </div>
+    <div class="item">      
+        <center><img src="/images/4.jpg" height=600 width=1136 alt="3" class="img-rounded"></center>        
+        <div class="carousel-caption">
+          <h3 class="img-rounded"></h3>
+        </div>
+    </div>
+    <div class="item">      
+        <center><img src="/images/6.jpg" height=600 width=1136 alt="3" class="img-rounded"></center>        
+        <div class="carousel-caption">
+          <h3 class="img-rounded"></h3>
+        </div>
+    </div>
+    <div class="item">      
+        <center><img src="/images/7.jpg" height=600 width=1136 alt="3" class="img-rounded"></center>        
+        <div class="carousel-caption">
+          <h3 class="img-rounded"></h3>
+        </div>
+    </div>
+    <div class="item">      
+        <center><img src="/images/8.jpg" height=600 width=1136 alt="3" class="img-rounded"></center>        
+        <div class="carousel-caption">
+          <h3 class="img-rounded"></h3>
+        </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+
+<!-- Categorias -->
+<br>
+<br>
+<br>
+
+
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="/app/assets/stylesheets/aplication.css">
+    
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    <div id="divContenedor">
+<center>
+
+</center>
+        
+
+    </div>
+    
+</body>
+
+
+<script>
+  
+$(document).ready(function()
+{
+  $('.divImagen').hover(
+    function() {
+      $(this).find('img').stop().animate({ 
+        width:50,
+        marginTop:10,
+        marginLeft:10
+      }, 300);
+    },
+
+    function() {
+      $(this).find('img').stop().animate({
+        width:150,
+        marginTop:10,
+        marginLeft:10
+      },300);
+    }
+  );
+});
+
+</script>         
