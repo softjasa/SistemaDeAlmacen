@@ -1,15 +1,15 @@
 <%= form_validated_for(@productname) do |f| %>
   
-    <%= f.label :name, "*Nombre del producto" %>
+    <%= f.label :name, "*Nombre del insumo" %>
     <p><%= f.text_field :name, :maxlength => '20'%></p>
     <%=f.label :brand, "*Marca" %>
     <p><%=f.collection_select(:brand_id, Brand.all, :id, :name)%></p> 
-    <%= f.label :code, "*Codigo del producto" %>
+    <%= f.label :code, "*Codigo del insumo" %>
     <p><%= f.text_field :code, :maxlength => '10'%></p>
 
     <%= f.label :description, "*Descripcion" %>
     <p><%= f.text_area :description, :maxlength => '160'%>
   </p>
 
-  <p><%= f.submit (@productname.new_record? ? 'Registrar Producto' : 'Guardar Cambios'), :class => 'btn btn-mini btn-jordi' %></p>
+  <p><%= f.submit (@productname.new_record? ? 'Registrar Insumo' : 'Guardar Cambios'), :class => 'btn btn-mini btn-jordi' %></p>
 <% end %>

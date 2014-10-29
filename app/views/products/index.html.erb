@@ -1,8 +1,8 @@
-<% title "Stock de productos" %>
+<% title "Stock de insumo" %>
 <%if current_user.rol=="admin"%>
 <h1>Administracion de pagina</h1>
 <%else%>
-<h1>Stock de Productos</h1>
+<h1>Stock de insumos</h1>
 <%end%>
 
 <center>
@@ -31,17 +31,17 @@ Busqueda: <input type="text" name="name" placeholder="Nombre de producto"> &nbsp
                 <td><CENTER><%= product.name %></CENTER></td>
                 <td><CENTER><%= product.brand %></CENTER></td>
                 <td><CENTER><%= product.quantity %></CENTER></td>
-                <td><%= link_to 'Ver Producto', product_path(product), :class => 'btn btn-mini btn-success'  %>
+                <td><%= link_to 'Ver insumo', product_path(product), :class => 'btn btn-mini btn-success'  %>
 
                 <% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
-                    <%= link_to 'Editar Producto de Stock', {:controller => :products, :action => "edit", :id => product.id }, :class => 'btn btn-mini btn-warning'  %>
+                    <%= link_to 'Editar insumo de Stock', {:controller => :products, :action => "edit", :id => product.id }, :class => 'btn btn-mini btn-warning'  %>
                     <%if product.quantity == 0%>
-                        <%= link_to 'Eliminar Producto de Stock', product_path(product), method: :delete, data: { confirm: 'Esta seguro de elminar este producto' }, :class => 'btn btn-mini btn-danger' %>
+                        <%= link_to 'Eliminar insumo de Stock', product_path(product), method: :delete, data: { confirm: 'Esta seguro de elminar este insumo' }, :class => 'btn btn-mini btn-danger' %>
                     <%end%>
                      <!--<%= link_to 'Ver Kardex', {:controller => :kardexes, :action => "index", :id => product.id , :name => product.name}, :class => 'btn btn-mini btn-default'  %>-->
                     
                     <%if product.quantity <= 5 %>                    
-                            <button type="button" class="btn btn-mini btn-danger popover-dismiss" data-toggle="popover" title="CANTIDAD MINIMA" data-content="El cantidad de productos se encuentra en el minimo.">ALERTA!
+                            <button type="button" class="btn btn-mini btn-danger popover-dismiss" data-toggle="popover" title="CANTIDAD MINIMA" data-content="El cantidad de insumos se encuentra en el minimo.">ALERTA!
                         </button>                                                            
                     <%end%>
                     
@@ -49,9 +49,9 @@ Busqueda: <input type="text" name="name" placeholder="Nombre de producto"> &nbsp
                 <%end%>
                 <% if current_user.rol == "admin" || current_user.rol == "gerente"%>
                     <%if product.home == true%>
-                    <td><%= button_to 'Eliminar producto de pagina', {:controller => :products, :action => 'delete_from_home', :id => product.id}, :class => 'btn btn-mini btn-danger' %></td>
+                    <td><%= button_to 'Eliminar insumo de pagina', {:controller => :products, :action => 'delete_from_home', :id => product.id}, :class => 'btn btn-mini btn-danger' %></td>
                     <%else%>
-                    <!--<td><%= button_to 'Añadir producto a pagina', {:controller => :products, :action => 'add_to_home', :id => product.id}, :class => 'btn btn-jordi'%></td>-->
+                    <!--<td><%= button_to 'Añadir insumo a pagina', {:controller => :products, :action => 'add_to_home', :id => product.id}, :class => 'btn btn-jordi'%></td>-->
                     <%end%>    
                 <%end%>
             </tr>

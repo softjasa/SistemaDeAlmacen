@@ -1,5 +1,5 @@
 
-<% title "Editar producto de stock" %>
+<% title "Editar insumo de stock" %>
 <h1>Editar producto de stock</h1>
 <% if current_user %>
 <% if current_user.rol == "enc_almacen" || current_user.rol == "gerente" %>
@@ -15,7 +15,7 @@
 			<p><%= f.label :detail , "*Detalle:" %>
 			<%= f.text_area :detail, :maxlength => '100'%>
 
-			<p><%= f.label :general_code , "*Codigo General del Producto:" %>
+			<p><%= f.label :general_code , "*Codigo General del insumo:" %>
 			<%= f.text_field :general_code, :maxlength => '15' %>
 
 			<p><%=f.label :category, "*Categoria" %>

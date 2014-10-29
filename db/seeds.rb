@@ -28,15 +28,11 @@
 	almacenero.save!		
 
 
-	brands = Brand.create([{name: "Toshiba"}, {name: "Dell"}, {name: "Sony"}, {name: "3M"}, {name: "ASUS"}, {name: "Samsung"}, {name: "ViewSonic"}, {name: "Amazon"}, {name: "Apple"}, {name: "eBeam"}, {name: "Epson"}, {name: "BenQ"}, {name: "NEC"}, {name: "HP"}])
-	categories = Category.create([{name: "Laptops"}, {name: "Maletines"}, {name: "Mochilas"}, {name: "Accesorios"}, {name: "Impresoras"}, {name: "Proyectores"}, {name: "Tablets"}, {name: "Mobiliarios"}])
+	brands = Brand.create([{name: "pil"}, {name: "fino"}, {name: "Don Vittorio"}, {name: "dillman"}, {name: "sofia"}, {name: "hass"}])
+	categories = Category.create([{name: "vegetal"}, {name: "carne"}, {name: "lacteos"}, {name: "fruta"}, {name: "tuberculos"}, {name: "enlatados"}, {name: "pastas"}, {name: "guarnicion"}])
 # Lista de Clientes
 
-	client1 = Client.new
-	client1.name = 'Andres Martines'
-	client1.nit = 2123344223
-	client1.phone = 4489223
-	client1.save!
+	
 
 	client2 = Client.new
 	client2.name = 'Oscar Arce'
@@ -52,9 +48,9 @@
 	#product names
 
 	prodnames1 = Productname.new
-	prodnames1.name = 'toshiba-x10'
-	prodnames1.code = 'tosh-x10'
-	prodnames1.description = 'pantalla 17 pulgadas, teclado ingles, core i7 tercera generacion'
+	prodnames1.name = 'Leche'
+	prodnames1.code = '01415'
+	prodnames1.description = 'Leche pasteurizada'
 	prodnames1.brand_id = 1
 	prodnames1.save!
 	
