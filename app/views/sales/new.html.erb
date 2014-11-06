@@ -1,26 +1,26 @@
 <% if current_user %>
 <% if current_user.rol == "secre" || current_user.rol == "gerente" %>
-	<% title "Registrar Venta" %>
+	<% title "Registrar Salida" %>
 <div class="hero-unit">
 
-<h1>Registrar Venta</h1>
+<h1>Registrar Salida</h1>
 <br>
 <%= form_validated_for (@sale) do |f| %>
 	<div class="col-xs-3">
 	<p>
-		<%= f.label :client_name , "Nombre del Cliente:" %>
+		<%= f.label :client_name , "Nombre del Empleado:" %>
 		<%= f.text_field :client_name, :maxlength => '20' %></p>
 
-		<p><%= f.label :check_number , "Numero de Factura:" %>
+		<p><%= f.label :check_number , "Numero de Salida:" %>
 		<%= f.text_field :check_number, :maxlength => '10' %>
 		</p>
 	
 	<p>
-		<%= f.label :nit , "NIT Cliente:" %>
+		<%= f.label :nit , "Empleado:" %>
 		<%= f.text_field :nit, :maxlength => '10' %>
 </p>
 <p>
-		<%= f.submit "Registrar Venta", class: "btn btn-large btn-jordi" %>
+		<%= f.submit "Registrar Salida", class: "btn btn-large btn-jordi" %>
 		</p>
 	</div>	
 <%end%>

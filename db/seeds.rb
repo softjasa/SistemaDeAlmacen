@@ -35,7 +35,7 @@
 	
 
 	client2 = Client.new
-	client2.name = 'Oscar Arce'
+	client2.name = 'Juan Sabath'
 	client2.nit = 212345353
 	client2.phone = 3489101
 	client2.save!

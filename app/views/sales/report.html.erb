@@ -1,21 +1,21 @@
 <% if current_user %>
 <% if current_user.rol == "secre" || current_user.rol == "gerente" %>
 <% @total = 0%>
-<% title "Reporte de Ventas" %>
+<% title "Reporte de Salidas" %>
 <HTML>
     <HEAD>
         <link rel="stylesheet" href="print.css" type="text/css" media="print" />
     </HEAD>
     <BODY onLoad="window.print();">
         <div class="hero-unit">
-            <h1>Reporte de Ventas</h1>
+            <h1>Reporte de Salidas</h1>
             <br>
             <CENTER>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th><Center>Nombre del cliente</Center></th>
-                            <th><Center>Numero factura</Center></th>
+                            <th><Center>Nombre del empleado</Center></th>
+                            <th><Center>Numero de salida</Center></th>
                             <th><Center>Precio</Center></th>
                             <th></th>       
                             <th></th>       
@@ -34,7 +34,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title" id="myModalLabel"><CENTER>Productos Vendidos</CENTER></h4>
+                                                        <h4 class="modal-title" id="myModalLabel"><CENTER>Insumo</CENTER></h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <Center>
@@ -44,8 +44,8 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th><Center>Nombre</Center></th>
-                                                                    <th><Center>Codigo del SubProducto</Center></th>
-                                                                    <th><Center>Precio De Venta</Center></th>        
+                                                                    <th><Center>Codigo del SubInsumo</Center></th>
+                                                                    <th><Center>Precio De Salida</Center></th>        
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

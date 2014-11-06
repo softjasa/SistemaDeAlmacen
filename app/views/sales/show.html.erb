@@ -9,25 +9,25 @@
 
 <div class="hero-unit">
 
-<%if @sale.confirmed == true %>
+<!--<%if @sale.confirmed == true %>
     <h2 align="right"><b class="text-info">Factura Nº<br><%= @sale.check_number %></b></h2>
-<%end%>
-<h2><b class="text-info">Fecha de venta:</b> <%= @sale.created_at.strftime("%d/%m/%Y") %></h2>
+<%end%>-->
+<h2><b class="text-info">Fecha de Salida:</b> <%= @sale.created_at.strftime("%d/%m/%Y") %></h2>
 <%if @sale.client_name != "Harry"%>
-    <H2><b class="text-info">Nombre:</b> <%= @sale.client_name %></H2>
+    <H2><b class="text-info">Empleado:</b> <%= @sale.client_name %></H2>
     <h2><b class="text-info">Nit:</b> <%= @sale.nit%></h2>
 <%else%>
-<H1>Venta Nº: <%=@sale.id%></H1>
+<H1>Salida Nº: <%=@sale.id%></H1>
 <%end%>
 
 <p>
-    <h2 class="text-info"><b><Center>Detalle de Venta</Center></b></h2>
+    <h2 class="text-info"><b><Center>Detalle de Salida</Center></b></h2>
     <div>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th><Center>Nombre</Center></th>
-                <th><Center>Codigo del Producto</Center></th>
+                <th><Center>Codigo de Insumo</Center></th>
                 <th><Center>Precio(Bs.)</Center></th>        
             </tr>
             </thead>
@@ -38,7 +38,7 @@
                     <td><CENTER><%= subproduct.code %></CENTER></td>
                     <td><CENTER><%= number_with_precision(subproduct.price, :precision => 2, :delimiter => ',') %></CENTER></td>
                     <% if @sale.confirmed == false %>
-                    <td><%= link_to 'Eliminar de venta', {:controller => :productsales, :action => 'eliminar_subproducto_venta', :id => subproduct.id, :sale_id => @sale.id}, :class =>'btn btn-mini btn-danger'%></td>
+                    <td><%= link_to 'Eliminar de Salida', {:controller => :productsales, :action => 'eliminar_subproducto_venta', :id => subproduct.id, :sale_id => @sale.id}, :class =>'btn btn-mini btn-danger'%></td>
                     <%end%>
                 </tr>
             <% end %>
@@ -46,20 +46,20 @@
         </table>
     </div>
 </p>
-    <h2 align="right">Total Venta: <%= number_with_precision(@sale.price, :precision => 2, :delimiter => ',') %></h2>
+    <h2 align="right">Total Salida: <%= number_with_precision(@sale.price, :precision => 2, :delimiter => ',') %></h2>
 
 <% if @sale.confirmed == false %>
     <p>
-        <h2><Center><!--%= link_to_function "Agregar Producto a venta", "$('#subproduct').toggle()" %-->Agregar Producto a Venta</h2></Center>
+        <h2><Center><!--%= link_to_function "Agregar Producto a venta", "$('#subproduct').toggle()" %-->Agregar Insumo a Salida</h2></Center>
         <center>
         <div id="subproduct" ><!--style="display:none"--><br>
-        <form method="GET">Nombre: <input type="text" name="name"> &nbsp;&nbsp;&nbsp;<input type="submit" value="Buscar producto", class="btn btn-info"></form>
+        <form method="GET">Nombre: <input type="text" name="name"> &nbsp;&nbsp;&nbsp;<input type="submit" value="Buscar Insumo", class="btn btn-info"></form>
         </center>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th><Center>Nombre</Center></th>
-                    <th><Center>Codigo del Producto</Center></th>        
+                    <th><Center>Codigo de Insumo</Center></th>        
                 </tr>
             </thead>
             <tbody>
@@ -70,18 +70,18 @@
                     <td><CENTER><%= subproduct.code %></CENTER></td>
                     <td>
                         <div align="right">
-                            <button class="btn btn-jordi" data-toggle="modal" data-target="#myModal">Agregar a venta</button>
+                            <button class="btn btn-jordi" data-toggle="modal" data-target="#myModal">Agregar a Salida</button>
                         </div>
                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Agregar precio</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Precio</h4>
                                     </div>
                                     <div class="modal-body">
                                         <%= form_validated_for([@sale, @sale.productsales.build]) do |f| %>
-                                        <%= f.label :price , "Precio de venta (Bs.):" %>
+                                        <%= f.label :price , "Precio de insumo (Bs.):" %>
                                         <%= f.text_field :price, :maxlength => '9' %>
                                         <%= f.hidden_field :subproduct_id, :value => subproduct.id %>
                                         <%= f.submit "Agregar", class: "btn btn-jordi"%>
@@ -105,7 +105,7 @@
     <center>
     <%if @sale.price !=0 %>
     <div>
-        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#sale">Confirmar venta</button>
+        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#sale">Confirmar salida</button>
     </div>
 
     <div class="modal fade" id="sale" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -113,19 +113,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Ingresar datos venta</h4>
+                    <h4 class="modal-title" id="myModalLabel">Ingresar datos de salida</h4>
                 </div>
                 <div class="modal-body">
                     <%= form_validated_for (@sale) do |f| %>
-                    <h3><%= f.label :nit , "NIT Cliente:" %><%= f.collection_select(:nit, Client.all, :nit, :for_sale, :prompt => "Seleccione un NIT")%></h3>
-                    <h3><%= f.label :check_number , "Numero de Factura:" %><%= f.text_field :check_number, :value => "", :maxlength => '12'%></h3>
+                    <h3><%= f.label :nit , "NIT Empleado:" %><%= f.collection_select(:nit, Client.all, :nit, :for_sale, :prompt => "Seleccione un NIT")%></h3>
+                    <h3><%= f.label :check_number , "Numero de Salida:" %><%= f.text_field :check_number, :value => "", :maxlength => '12'%></h3>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
                         <%if @sale.confirmed == false %>
-                            <%= f.submit "Confirmar Venta", class: "btn btn-large btn-jordi" %>
+                            <%= f.submit "Confirmar Salida", class: "btn btn-large btn-jordi" %>
                         <%else%>
-                            <%= f.submit "Registrar Venta", class: "btn btn-large btn-jordi" %>
+                            <%= f.submit "Registrar Salida", class: "btn btn-large btn-jordi" %>
                         <%end%>
                     <%end%>
                 </div>
@@ -134,7 +134,7 @@
     </div>
     <%end%>
         <br/>
-        <%= link_to 'Cancelar venta', sale_path(@sale), method: :delete, data: { confirm: 'Seguro de Cancelar la venta?' }, :class => 'btn btn-danger btn-lg' %><br>
+        <%= link_to 'Cancelar Salida', sale_path(@sale), method: :delete, data: { confirm: 'Seguro de Cancelar la salida?' }, :class => 'btn btn-danger btn-lg' %><br>
 <%end%>
 <br> 
 

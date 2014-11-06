@@ -1,18 +1,18 @@
 <% if current_user %>
 <% if current_user.rol == "secre" || current_user.rol == "gerente" %>
-<% title "Lista de Ventas" %>
+<% title "Lista de Salidas" %>
 <div class="hero-unit">
-<h1>Lista de Ventas</h1>
+<h1>Lista de Salidas</h1>
 <div align="right">
-<%= link_to 'Registrar Venta', {:controller => "sales", :action => "create", :price => '0', :confirmed => 'false', :check_number => rand(1000..9999), :nit =>'1111111', :client_name => "Harry"},:class => 'btn btn-jordi', :method => "post" %><br><br>
+<%= link_to 'Registrar Salida', {:controller => "sales", :action => "create", :price => '0', :confirmed => 'false', :check_number => rand(1000..9999), :nit =>'1111111', :client_name => "Harry"},:class => 'btn btn-jordi', :method => "post" %><br><br>
 </div>
 
 
 <div >
 <br>
 <form method="GET" action="/sales/search">
-Cliente: <input type="text" name="name" placeholder="Nombre de cliente"> &nbsp;&nbsp;&nbsp;
-<input type="submit" value="Buscar por cliente", class="btn btn-info">
+Empleado: <input type="text" name="name" placeholder="Nombre de empleado"> &nbsp;&nbsp;&nbsp;
+<input type="submit" value="Buscar por empleado", class="btn btn-info">
 </form>
 </div>
 
@@ -21,8 +21,8 @@ Cliente: <input type="text" name="name" placeholder="Nombre de cliente"> &nbsp;&
 <div>
 <br>
 <form method="GET" action="/sales/searchProduct">
-Producto: <input type="text" name="producto" placeholder="Nombre de producto"> &nbsp;&nbsp;&nbsp;
-<input type="submit" value="Buscar por producto", class="btn btn-info">
+Insumo: <input type="text" name="producto" placeholder="Nombre de insumo"> &nbsp;&nbsp;&nbsp;
+<input type="submit" value="Buscar por insumo", class="btn btn-info">
 </form>
 </div>
 
@@ -42,8 +42,8 @@ Fecha: <input type="date" name="date"> &nbsp;&nbsp;&nbsp;
 <table class="table table-striped">
     <thead>
         <tr>
-            <th><Center>Nombre del cliente</Center></th>
-            <th><Center>Numero factura</Center></th>
+            <th><Center>Nombre del empleado</Center></th>
+            <th><Center>Numero de salida</Center></th>
             <th><Center>Precio</Center></th>
             <th><Center>Estado</Center></th>
             <th></th>       
@@ -78,9 +78,9 @@ Fecha: <input type="date" name="date"> &nbsp;&nbsp;&nbsp;
                     <td><CENTER>Reservado</CENTER></td>
                     <%end%>
                 <%if sale.confirmed == true %>
-                <td><%= link_to 'Ver venta', {:controller => :sales, :action => "show", :id => sale.id }, :class => 'btn btn-mini btn-success'  %></td>
+                <td><%= link_to 'Ver salida', {:controller => :sales, :action => "show", :id => sale.id }, :class => 'btn btn-mini btn-success'  %></td>
                 <%else%>
-                <td><%= link_to 'Editar venta', {:controller => :sales, :action => "show", :id => sale.id }, :class => 'btn btn-mini btn-warning'  %></td>
+                <td><%= link_to 'Editar salida', {:controller => :sales, :action => "show", :id => sale.id }, :class => 'btn btn-mini btn-warning'  %></td>
                 <%end%>
             </tr>
         <% end %>

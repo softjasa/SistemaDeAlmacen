@@ -47,18 +47,18 @@
               </ul>
             </li>
             <%end%>          
-<!--
+
             <% if current_user.rol == "secre" || current_user.rol == "gerente" %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Salidas<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><%= link_to 'Registrar Venta', {:controller => "sales", :action => "create", :price => '0', :confirmed => 'false', :check_number => rand(1000..9999), :nit =>'1111111', :client_name => "Harry"}, :method => "post" %></li>
-                <li><%= link_to "Lista de ventas", sales_path %></li>
-                <li><a href="/sales/report_search">Reporte de ventas</a></li>
-                <li><a href="/outflows/report_search">Reporte de egresos</a></li>
+                <li><%= link_to 'Registrar Salida', {:controller => "sales", :action => "create", :price => '0', :confirmed => 'false', :check_number => rand(1000..9999), :nit =>'1111111', :client_name => "Harry"}, :method => "post" %></li>
+                <li><%= link_to "Lista de Salida", sales_path %></li>
+                <li><a href="/sales/report_search">Reporte de Salidas</a></li>
+                <!--<li><a href="/outflows/report_search">Reporte de egresos</a></li>-->
               </ul>
             </li>
-            <%end%>-->
+            <%end%>
             <!--
             <% if current_user.rol == "tecnico" || current_user.rol == "gerente" %>
             <li class="dropdown">
