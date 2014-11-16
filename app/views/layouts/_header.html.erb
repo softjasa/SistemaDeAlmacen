@@ -37,7 +37,7 @@
 
             <% if current_user.rol == "secre" || current_user.rol == "gerente" || current_user.rol == "enc_almacen"%>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Ingresos<b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Pedidos<b class="caret"></b></a>
               <ul class="dropdown-menu">                
                 <li class="dropdown-header">Pedidos</li>
                 <li><%= link_to 'Registrar pedido', {:controller => "orders", :action => "create", :numero_pedido => (rand() * 100).to_i, :id => '1', :estado => 'Pendiente', :ingresado =>false, :provider_id => "1"}, :method => "post" %></li>
